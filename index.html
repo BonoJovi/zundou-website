@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" data-i18n="description">
+    <title data-i18n="pageTitle"></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        .lang-selector {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 300px;
+            justify-content: flex-end;
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+        .lang-btn:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+        .lang-btn.active {
+            border-color: #667eea;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            color: white;
+        }
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            width: 100%;
+            margin-bottom: 32px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        .product-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .product-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .product-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+            font-size: 15px;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            padding-top: 24px;
+            margin-top: auto;
+        }
+        @media (max-width: 768px) {
+            .lang-selector {
+                position: static;
+                width: 100%;
+                margin-bottom: 24px;
+                justify-content: center;
+            }
+            .header {
+                margin-bottom: 32px;
+            }
+            .header h1 {
+                font-size: 32px;
+            }
+            .header p {
+                font-size: 16px;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .product-card {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-selector" id="langSelector"></div>
+
+    <div class="content">
+        <div class="header">
+            <h1>🌐 zundou.org</h1>
+            <p data-i18n="tagline"></p>
+        </div>
+
+        <div class="products-grid">
+            <!-- KakeiBon Card -->
+            <div class="product-card">
+                <div class="product-icon">📊</div>
+                <h2 class="product-name" data-i18n="kakeibon.name"></h2>
+                <p class="product-desc" data-i18n="kakeibon.desc"></p>
+                <a href="https://github.com/BonoJovi/KakeiBonByRust" class="btn" data-i18n="kakeibon.btn"></a>
+            </div>
+
+            <!-- Promps Card -->
+            <div class="product-card">
+                <div class="product-icon">✨</div>
+                <h2 class="product-name" data-i18n="promps.name"></h2>
+                <p class="product-desc" data-i18n="promps.desc"></p>
+                <a href="https://promps.zundou.org/" class="btn" data-i18n="promps.btn"></a>
+            </div>
+
+            <!-- ai2ia Card -->
+            <div class="product-card">
+                <div class="product-icon">🤖</div>
+                <h2 class="product-name" data-i18n="ai2ia.name"></h2>
+                <p class="product-desc" data-i18n="ai2ia.desc"></p>
+                <a href="https://ai2ia.zundou.org/" class="btn" data-i18n="ai2ia.btn"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p data-i18n="footer"></p>
+    </div>
+
+    <script>
+        // Translations for 7 languages
+        const TRANSLATIONS = {
+            ja: {
+                'pageTitle': 'zundou.org - プロダクトポータル',
+                'description': 'zundou.org - KakeiBon, Promps, ai2ia の3つのプロダクトを紹介するポータルサイト',
+                'tagline': '3つの素晴らしいプロダクトが、あなたの生活を変える',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': '家計簿管理アプリ。Rust で実装された高速で安全な家計管理ツール。支出の記録と分析が簡単にできます。',
+                'kakeibon.btn': 'GitHub で見る',
+                'promps.name': 'Promps',
+                'promps.desc': 'プロンプト管理プラットフォーム。AI との会話を効率化し、プロンプトの再利用を可能にします。',
+                'promps.btn': 'Promps へ',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'AI アシスタント。高度な質問応答システムで、複雑な問題の解決をサポートします。',
+                'ai2ia.btn': 'ai2ia へ',
+                'footer': '© 2026 zundou.org - All rights reserved'
+            },
+            en: {
+                'pageTitle': 'zundou.org - Product Portal',
+                'description': 'zundou.org - A portal site introducing three great products: KakeiBon, Promps, and ai2ia',
+                'tagline': 'Three amazing products that will transform your life',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'Personal finance management app. A fast and secure budgeting tool implemented in Rust. Track and analyze your expenses with ease.',
+                'kakeibon.btn': 'View on GitHub',
+                'promps.name': 'Promps',
+                'promps.desc': 'Prompt management platform. Streamline your conversations with AI and enable prompt reusability.',
+                'promps.btn': 'Go to Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'AI assistant. An advanced question-answering system that helps solve complex problems.',
+                'ai2ia.btn': 'Go to ai2ia',
+                'footer': '© 2026 zundou.org - All rights reserved'
+            },
+            fr: {
+                'pageTitle': 'zundou.org - Portail de Produits',
+                'description': 'zundou.org - Un portail présentant trois excellents produits : KakeiBon, Promps et ai2ia',
+                'tagline': 'Trois produits remarquables qui transformeront votre vie',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'Application de gestion financière personnelle. Un outil budgétaire rapide et sécurisé implémenté en Rust. Suivez et analysez vos dépenses facilement.',
+                'kakeibon.btn': 'Voir sur GitHub',
+                'promps.name': 'Promps',
+                'promps.desc': 'Plateforme de gestion de requêtes. Optimisez vos conversations avec l\'IA et activez la réutilisabilité des requêtes.',
+                'promps.btn': 'Aller à Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'Assistant IA. Un système de questions-réponses avancé qui aide à résoudre des problèmes complexes.',
+                'ai2ia.btn': 'Aller à ai2ia',
+                'footer': '© 2026 zundou.org - Tous droits réservés'
+            },
+            it: {
+                'pageTitle': 'zundou.org - Portale Prodotti',
+                'description': 'zundou.org - Un portale che introduce tre ottimi prodotti: KakeiBon, Promps e ai2ia',
+                'tagline': 'Tre prodotti straordinari che trasformeranno la tua vita',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'App di gestione finanziaria personale. Uno strumento di budgeting veloce e sicuro implementato in Rust. Traccia e analizza le tue spese con facilità.',
+                'kakeibon.btn': 'Visualizza su GitHub',
+                'promps.name': 'Promps',
+                'promps.desc': 'Piattaforma di gestione dei prompt. Semplifica le tue conversazioni con l\'IA e abilita la riutilizzabilità dei prompt.',
+                'promps.btn': 'Vai a Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'Assistente IA. Un sistema di domande-risposte avanzato che aiuta a risolvere problemi complessi.',
+                'ai2ia.btn': 'Vai a ai2ia',
+                'footer': '© 2026 zundou.org - Tutti i diritti riservati'
+            },
+            de: {
+                'pageTitle': 'zundou.org - Produktportal',
+                'description': 'zundou.org - Ein Portal, das drei großartige Produkte vorstellt: KakeiBon, Promps und ai2ia',
+                'tagline': 'Drei erstaunliche Produkte, die dein Leben verändern werden',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'App für persönliche Finanzverwaltung. Ein schnelles und sicheres Budgetierungstool in Rust implementiert. Verfolge und analysiere deine Ausgaben einfach.',
+                'kakeibon.btn': 'Auf GitHub ansehen',
+                'promps.name': 'Promps',
+                'promps.desc': 'Prompt-Management-Plattform. Optimiere deine Gespräche mit KI und ermögliche die Wiederverwendbarkeit von Prompts.',
+                'promps.btn': 'Zu Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'KI-Assistent. Ein fortschrittliches Frage-Antwort-System, das bei der Lösung komplexer Probleme hilft.',
+                'ai2ia.btn': 'Zu ai2ia',
+                'footer': '© 2026 zundou.org - Alle Rechte vorbehalten'
+            },
+            ru: {
+                'pageTitle': 'zundou.org - Портал продуктов',
+                'description': 'zundou.org - Портал, представляющий три отличных продукта: KakeiBon, Promps и ai2ia',
+                'tagline': 'Три удивительных продукта, которые изменят вашу жизнь',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'Приложение для управления личными финансами. Быстрый и безопасный инструмент бюджетирования, реализованный на Rust. Легко отслеживайте и анализируйте свои расходы.',
+                'kakeibon.btn': 'Просмотр на GitHub',
+                'promps.name': 'Promps',
+                'promps.desc': 'Платформа управления подсказками. Оптимизируйте свои разговоры с ИИ и включите повторное использование подсказок.',
+                'promps.btn': 'Перейти к Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'Помощник ИИ. Продвинутая система вопросов-ответов, которая помогает решать сложные проблемы.',
+                'ai2ia.btn': 'Перейти к ai2ia',
+                'footer': '© 2026 zundou.org - Все права защищены'
+            },
+            ar: {
+                'pageTitle': 'zundou.org - بوابة المنتجات',
+                'description': 'zundou.org - بوابة تقدم ثلاثة منتجات رائعة: KakeiBon و Promps و ai2ia',
+                'tagline': 'ثلاثة منتجات مذهلة ستغير حياتك',
+                'kakeibon.name': 'KakeiBon',
+                'kakeibon.desc': 'تطبيق إدارة المالية الشخصية. أداة ميزانية سريعة وآمنة مطبقة في Rust. تتبع وحلل نفقاتك بسهولة.',
+                'kakeibon.btn': 'عرض على GitHub',
+                'promps.name': 'Promps',
+                'promps.desc': 'منصة إدارة الأوامر. قم بتحسين محادثاتك مع الذكاء الاصطناعي وقم بتفعيل إعادة استخدام الأوامر.',
+                'promps.btn': 'انتقل إلى Promps',
+                'ai2ia.name': 'ai2ia',
+                'ai2ia.desc': 'مساعد ذكي. نظام متقدم للأسئلة والأجوبة يساعد على حل المشاكل المعقدة.',
+                'ai2ia.btn': 'انتقل إلى ai2ia',
+                'footer': '© 2026 zundou.org - جميع الحقوق محفوظة'
+            }
+        };
+
+        // Language codes in order
+        const LANGUAGES = ['en', 'ja', 'fr', 'it', 'de', 'ru', 'ar'];
+
+        // Detect user language
+        function detectLanguage() {
+            const browserLang = navigator.language.split('-')[0];
+            if (TRANSLATIONS[browserLang]) {
+                return browserLang;
+            }
+            return 'en'; // Default to English
+        }
+
+        // Set current language
+        let currentLang = detectLanguage();
+
+        // Check for stored preference
+        const storedLang = localStorage.getItem('zundouLang');
+        if (storedLang && TRANSLATIONS[storedLang]) {
+            currentLang = storedLang;
+        }
+
+        // Update page language
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('zundouLang', lang);
+            document.documentElement.lang = lang;
+            if (lang === 'ar') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const translation = TRANSLATIONS[currentLang][key];
+                if (translation) {
+                    if (element.tagName === 'TITLE') {
+                        element.textContent = translation;
+                    } else if (element.getAttribute('data-i18n') === 'description') {
+                        element.setAttribute('content', translation);
+                    } else {
+                        element.textContent = translation;
+                    }
+                }
+            });
+
+            // Update language selector buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Create language selector
+        function initLanguageSelector() {
+            const selector = document.getElementById('langSelector');
+            LANGUAGES.forEach(lang => {
+                const btn = document.createElement('button');
+                btn.className = 'lang-btn';
+                btn.dataset.lang = lang;
+                btn.textContent = lang.toUpperCase();
+                btn.onclick = () => setLanguage(lang);
+                selector.appendChild(btn);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initLanguageSelector();
+            setLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>
