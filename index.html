@@ -20,7 +20,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 16px;
+            padding: 32px 16px 16px 16px;
         }
         .lang-selector {
             position: absolute;
@@ -79,43 +79,139 @@
             opacity: 0.95;
             font-weight: 300;
         }
+        .header .header-subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            font-weight: 700;
+            margin-top: 16px;
+            color: white;
+            line-height: 1.8;
+        }
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr auto 1fr;
             gap: 24px;
             width: 100%;
             margin-bottom: 32px;
         }
+        .products-grid .product-card:nth-child(4) {
+            grid-column: 1 / -1;
+        }
         .product-card {
             background: white;
             border-radius: 12px;
-            padding: 32px 24px;
+            padding: 24px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            gap: 24px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+        .ai2ia-card,
+        .promps-card,
+        .kakeibon-card {
+            flex-direction: column;
             text-align: center;
+            gap: 12px;
+            align-items: stretch;
+        }
+        .card-target {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        .card-product-name {
+            font-size: 18px;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .card-feature {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .card-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .btn-kakeibon {
+            margin-top: 8px;
         }
         .product-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
         }
+        .arrow-divider {
+            background: transparent;
+            border-radius: 12px;
+            padding: 24px 12px;
+            box-shadow: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+        .arrow-divider .product-icon {
+            font-size: 72px;
+            margin-bottom: 0;
+            flex-shrink: 0;
+            min-width: auto;
+            text-align: center;
+            color: white;
+            font-weight: 900;
+            text-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
         .product-icon {
             font-size: 48px;
-            margin-bottom: 16px;
+            margin-bottom: 0;
+            flex-shrink: 0;
+            min-width: 60px;
+            text-align: center;
+        }
+        .product-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .product-name {
             font-size: 24px;
             font-weight: 700;
             color: #333;
+            margin-bottom: 4px;
+        }
+        .product-subtitle {
+            font-size: 22px;
+            color: #222;
             margin-bottom: 12px;
+            font-weight: 500;
         }
         .product-desc {
             color: #666;
             line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             flex-grow: 1;
             font-size: 15px;
+        }
+        .product-arrow {
+            position: relative;
+            height: 0;
+            text-align: center;
+            font-size: 36px;
+            color: rgba(102, 126, 234, 0.6);
+            margin: 16px 0;
+            line-height: 1;
         }
         .btn {
             padding: 12px 24px;
@@ -130,6 +226,10 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
+        .btn-ai2ia,
+        .btn-promps {
+            margin-top: 8px;
+        }
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
@@ -138,8 +238,8 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.8);
             font-size: 13px;
-            padding-top: 24px;
-            margin-top: auto;
+            padding-top: 8px;
+            margin-top: 8px;
         }
 @media (max-width: 768px) {
             .lang-selector {
@@ -162,8 +262,20 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
+            .products-grid .product-card:nth-child(4) {
+                grid-column: 1;
+            }
             .product-card {
-                padding: 24px 16px;
+                padding: 16px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .product-icon {
+                margin-bottom: 12px;
+                min-width: auto;
+            }
+            .arrow-divider {
+                display: none;
             }
         }
     </style>
@@ -183,31 +295,46 @@
         <div class="header">
             <h1>🌐 zundou.org</h1>
             <p data-i18n="tagline"></p>
+            <p class="header-subtitle">シンプルに使うか、自由に使いこなすか<br>あなたに合ったAIツールを選んでください</p>
         </div>
 
 <div class="products-grid">
-            <!-- KakeiBon Card -->
-            <div class="product-card">
-                <div class="product-icon">📊</div>
-                <h2 class="product-name" data-i18n="kakeibon.name"></h2>
-                <p class="product-desc" data-i18n="kakeibon.desc"></p>
-                <a href="https://github.com/BonoJovi/KakeiBonByRust" class="btn" data-i18n="kakeibon.btn"></a>
+            <!-- ai2ia Card -->
+            <div class="product-card ai2ia-card">
+                <p class="card-target">AIで簡単に使いたい人へ</p>
+                <p class="card-product-name"><< ai2ia：ライトユーザ(初心者)向け >></p>
+
+                <p class="card-feature">やりたいことを入力するだけで<br>AIが最適な訊き方にしてくれる</p>
+
+                <p class="card-feature">難しい設定なしですぐに使える<br>誰でも簡単に使えるAIツール</p>
+
+                <a href="https://ai2ia.zundou.org/" class="btn btn-ai2ia">まずは無料で試す</a>
+            </div>
+
+            <!-- Arrow divider -->
+            <div class="arrow-divider">
+                <div class="product-icon">→</div>
             </div>
 
             <!-- Promps Card -->
-            <div class="product-card">
-                <div class="product-icon">✨</div>
-                <h2 class="product-name" data-i18n="promps.name"></h2>
-                <p class="product-desc" data-i18n="promps.desc"></p>
-                <a href="https://promps.zundou.org/" class="btn" data-i18n="promps.btn"></a>
+            <div class="product-card promps-card">
+                <p class="card-target">AIを自在に使いこなしたい人へ</p>
+                <p class="card-product-name"><< Promps：パワーユーザ(中・上級者)向け >></p>
+
+                <p class="card-feature">自由なプロンプト作成で<br>AIを思い通りに動かせる</p>
+
+                <p class="card-feature">高度な設定やカスタマイズで<br>自分仕様に最適化できるAIツール</p>
+
+                <a href="https://promps.zundou.org/" class="btn btn-promps">今すぐ試してみる</a>
             </div>
 
-            <!-- ai2ia Card -->
-            <div class="product-card">
-                <div class="product-icon">🤖</div>
-                <h2 class="product-name" data-i18n="ai2ia.name"></h2>
-                <p class="product-desc" data-i18n="ai2ia.desc"></p>
-                <a href="https://ai2ia.zundou.org/" class="btn" data-i18n="ai2ia.btn"></a>
+            <!-- KakeiBon Card -->
+            <div class="product-card kakeibon-card">
+                <p class="card-product-name"><< KakeiBon by Rust >></p>
+
+                <p class="card-desc">家計簿管理アプリ。Rustで実装された、高速かつ安全な家計管理ツールで、支出の記録と分析も簡単に行えます</p>
+
+                <a href="https://github.com/BonoJovi/KakeiBonByRust" class="btn btn-kakeibon">GitHub で見る</a>
             </div>
         </div>
     </div>
@@ -223,7 +350,7 @@
                 'pageTitle': 'zundou.org - プロダクトポータル',
                 'description': 'zundou.org - KakeiBon, Promps, ai2ia の3つのプロダクトを紹介するポータルサイト',
                 'tagline': '3つの素晴らしいプロダクトが、あなたの生活を変える',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': '家計簿管理アプリ。Rust で実装された高速で安全な家計管理ツール。支出の記録と分析が簡単にできます。',
                 'kakeibon.btn': 'GitHub で見る',
                 'promps.name': 'Promps',
@@ -238,7 +365,7 @@
                 'pageTitle': 'zundou.org - Product Portal',
                 'description': 'zundou.org - A portal site introducing three great products: KakeiBon, Promps, and ai2ia',
                 'tagline': 'Three amazing products that will transform your life',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'Personal finance management app. A fast and secure budgeting tool implemented in Rust. Track and analyze your expenses with ease.',
                 'kakeibon.btn': 'View on GitHub',
                 'promps.name': 'Promps',
@@ -253,7 +380,7 @@
                 'pageTitle': 'zundou.org - Portail de Produits',
                 'description': 'zundou.org - Un portail présentant trois excellents produits : KakeiBon, Promps et ai2ia',
                 'tagline': 'Trois produits remarquables qui transformeront votre vie',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'Application de gestion financière personnelle. Un outil budgétaire rapide et sécurisé implémenté en Rust. Suivez et analysez vos dépenses facilement.',
                 'kakeibon.btn': 'Voir sur GitHub',
                 'promps.name': 'Promps',
@@ -268,7 +395,7 @@
                 'pageTitle': 'zundou.org - Portale Prodotti',
                 'description': 'zundou.org - Un portale che introduce tre ottimi prodotti: KakeiBon, Promps e ai2ia',
                 'tagline': 'Tre prodotti straordinari che trasformeranno la tua vita',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'App di gestione finanziaria personale. Uno strumento di budgeting veloce e sicuro implementato in Rust. Traccia e analizza le tue spese con facilità.',
                 'kakeibon.btn': 'Visualizza su GitHub',
                 'promps.name': 'Promps',
@@ -283,7 +410,7 @@
                 'pageTitle': 'zundou.org - Produktportal',
                 'description': 'zundou.org - Ein Portal, das drei großartige Produkte vorstellt: KakeiBon, Promps und ai2ia',
                 'tagline': 'Drei erstaunliche Produkte, die dein Leben verändern werden',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'App für persönliche Finanzverwaltung. Ein schnelles und sicheres Budgetierungstool in Rust implementiert. Verfolge und analysiere deine Ausgaben einfach.',
                 'kakeibon.btn': 'Auf GitHub ansehen',
                 'promps.name': 'Promps',
@@ -298,7 +425,7 @@
                 'pageTitle': 'zundou.org - Портал продуктов',
                 'description': 'zundou.org - Портал, представляющий три отличных продукта: KakeiBon, Promps и ai2ia',
                 'tagline': 'Три удивительных продукта, которые изменят вашу жизнь',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'Приложение для управления личными финансами. Быстрый и безопасный инструмент бюджетирования, реализованный на Rust. Легко отслеживайте и анализируйте свои расходы.',
                 'kakeibon.btn': 'Просмотр на GitHub',
                 'promps.name': 'Promps',
@@ -313,7 +440,7 @@
                 'pageTitle': 'zundou.org - بوابة المنتجات',
                 'description': 'zundou.org - بوابة تقدم ثلاثة منتجات رائعة: KakeiBon و Promps و ai2ia',
                 'tagline': 'ثلاثة منتجات مذهلة ستغير حياتك',
-                'kakeibon.name': 'KakeiBon',
+                'kakeibon.name': 'KakeiBon by Rust',
                 'kakeibon.desc': 'تطبيق إدارة المالية الشخصية. أداة ميزانية سريعة وآمنة مطبقة في Rust. تتبع وحلل نفقاتك بسهولة.',
                 'kakeibon.btn': 'عرض على GitHub',
                 'promps.name': 'Promps',
